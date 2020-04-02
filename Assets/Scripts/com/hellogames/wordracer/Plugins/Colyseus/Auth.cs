@@ -19,7 +19,14 @@ namespace Colyseus
 		public string platform = null;
 	}
 
-	[Serializable]
+    [Serializable]
+    public class Metadata
+    {
+        public string point = null;
+        public string diamonds = null;
+    }
+
+    [Serializable]
 	public class UserData
 	{
 		public string token = null;
@@ -35,7 +42,7 @@ namespace Colyseus
 		public string lang = null;
 		public string location = null;
 		public string timezone = null;
-		public object metadata = null;
+		public Metadata metadata = null;
 
 		public DeviceData[] devices = null;
 
@@ -81,7 +88,7 @@ namespace Colyseus
 		public string Lang;
 		public string Location;
 		public string Timezone;
-		public object Metadata;
+		public Metadata Metadata;
 
 		public DeviceData[] Devices;
 

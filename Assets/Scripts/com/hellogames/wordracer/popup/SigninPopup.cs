@@ -48,8 +48,8 @@ namespace com.helloteam.wordracer.popup
                     break;
 
                 case "save":
-                    client.Auth.Username = username;
                     await client.Auth.Login(mail, pass);
+                    client.Auth.Username = username;
                     client.Auth.Save();
                     if (client.Auth.HasToken){
                         SceneManager.LoadScene(1);
