@@ -1196,6 +1196,8 @@ MonoBehaviour:
   word: {fileID: 5431422009323794982, guid: cb3acba45cce14c63902878ff7dfb484, type: 3}
   keyboardWord: {fileID: 4086370668161101655, guid: 7322b9ef80cf84e4e98f00b50c09432e,
     type: 3}
+  keyboardDelete: {fileID: 1573698973424973079, guid: b7b2b6ae37a8b49b9ba10bc36c365a61,
+    type: 3}
   oTime: {fileID: 134764706}
   mHealth1: 0
   mHealth2: 0

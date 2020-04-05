@@ -30,17 +30,18 @@ namespace com.helloteam.wordracer.scene
     {
         //TODO: health ve answer i şifreli hash yap. public den çıkart
         public TextMeshProUGUI name1, name2, health1, health2, time, question;
-        public GameObject keyboardSpace, wordSpace, guessBtn, word, keyboardWord, oTime;
-        public int mHealth1, mHealth2;
+        public GameObject keyboardSpace, wordSpace, guessBtn, word, keyboardWord, keyboardDelete, oTime;
+        public int mHealth1, mHealth2, openedWords, totOpenedWords;
         public List<Word> answerArr;
         public Sprite sDeleteWord;
 
         private Client client;
         private string[] keyboardContentTR;
         private string answer;
-        private float constTime = 15f, currentTime=0f, speed = 0.65f;
+        private float constTime, currentTime, speed;
         private bool timeStarted = false;
         private GameObject deleteWord;
+        private List<GameObject> keys;
 
 
         //TODO: serveri açınca sil
@@ -49,6 +50,15 @@ namespace com.helloteam.wordracer.scene
             mHealth1 = 5; mHealth2 = 5;
             answer = "Kastamonu";
 
+        }
+
+        private void GameInit()
+        {
+            client = Manager.Instance.client;
+            answerArr = new List<Word>();
+            keys = new List<GameObject>();
+            openedWords = 0; totOpenedWords = 0;
+            constTime = 15f; currentTime = 0f; speed = 0.65f;
         }
 
         private void KeyboardInit()
@@ -61,8 +71,8 @@ namespace com.helloteam.wordracer.scene
         {
             base.Awake();
             Manager.Instance.Init();
-            client = Manager.Instance.client;
-            answerArr = new List<Word>();
+
+            GameInit();
             KeyboardInit();
             TempInit();
         }
@@ -96,8 +106,7 @@ namespace com.helloteam.wordracer.scene
             {
                 if(constTime <= currentTime){
                     timeStarted = false;
-                    if (deleteWord != null)
-                        Destroy(deleteWord);
+                    TimeUp();
                 }
 
                 oTime.GetComponentInChildren<Image>().GetComponent<Animator>().SetFloat("Turn", currentTime);
@@ -127,8 +136,8 @@ namespace com.helloteam.wordracer.scene
                 GameObject newKey = Instantiate(keyboardWord, keyboardSpace.transform, false);
                 newKey.GetComponentInChildren<TextMeshProUGUI>().text = key;
                 newKey.GetComponent<KeyboardWord>().id = key;
+                keys.Add(newKey);
             }
-
         }
 
         public void DecreaseHealth()
@@ -142,11 +151,20 @@ namespace com.helloteam.wordracer.scene
 
         }
 
+        private void TimeUp()
+        {
+            if (deleteWord != null)
+                Destroy(deleteWord);
+
+            foreach (GameObject key in keys)
+                key.GetComponent<KeyboardWord>().predicting = false;
+        }
+
         public void GuessButton()
         {
             //TODO: hangi oyuncu bastıysa karşıdaki oyuncuyu kilitle
             //TODO: doğru cevap gelmezse karşıdaki oyuncuyu aç ve bu oyuncunun butona basmasını kilitle
-
+            //TODO: tekrar aynı kişi basmasın
             timeStarted = true;
             currentTime = 0f;
 
@@ -154,6 +172,9 @@ namespace com.helloteam.wordracer.scene
             //guessBtn.GetComponent<Image>().SetTransparency(155f / 255f);
 
             DisableAll(false);
+
+            foreach(GameObject key in keys)
+                key.GetComponent<KeyboardWord>().predicting = true;
 
         }
 
@@ -169,16 +190,7 @@ namespace com.helloteam.wordracer.scene
             else{
                 guessBtn.GetComponentInChildren<TextMeshProUGUI>().alpha = 155f / 255f;
                 guessBtn.GetComponent<Button>().interactable = false;
-                deleteWord = Instantiate(keyboardWord, keyboardSpace.transform, false);
-                deleteWord.GetComponent<KeyboardWord>().id = "del";
-
-                GameObject delImage = new GameObject("image");
-                delImage.transform.parent = deleteWord.transform;
-                delImage.transform.localPosition = Vector3.zero;
-                delImage.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                delImage.AddComponent<Image>();
-                delImage.GetComponent<Image>().sprite = sDeleteWord;
-                delImage.GetComponent<Image>().color = Color.red;
+                deleteWord = Instantiate(keyboardDelete, keyboardSpace.transform, false);
 
             }
 

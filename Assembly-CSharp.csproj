@@ -179,6 +179,7 @@
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\scene\Game.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\scene\Scene.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\ui\Cart.cs" />
+    <Compile Include="Assets\Scripts\com\hellogames\wordracer\ui\KeyboardDelete.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\ui\KeyboardWord.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\ui\LanguageController.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\ui\USingleton.cs" />
