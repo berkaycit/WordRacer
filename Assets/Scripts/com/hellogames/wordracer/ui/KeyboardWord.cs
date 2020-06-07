@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using com.helloteam.wordracer.scene;
+using com.helloteam.wordracer.manager;
 
 public class KeyboardWord : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class KeyboardWord : MonoBehaviour
         predicting = false;
     }
 
-    public void Pressed()
+    public async void Pressed()
     {
         if (game == null)
             game = FindObjectOfType<Game>();
@@ -29,10 +30,29 @@ public class KeyboardWord : MonoBehaviour
                 {
                     answerWord.DisplayWord();
                     decreaseHealth = false;
+
+                    //Oyuncu oyunu klavyeden kazandı
+                    if (game.totOpenedWords == game.answerArr.Count - 1)
+                    {
+                        string userAnswer = new string(game.userAnser);
+
+                        if (Manager.Instance.room != null)
+                            await Manager.Instance.room.Send(new { command = "prediction", answer = userAnswer });
+
+                        Debug.Log("kazandi");
+
+                        //Manager.Instance.Popup.Open("Winner");
+
+                        //if (Manager.Instance.room != null)
+                        //TODO: servere mesaj gönder
+                    }
+
                 }
             }
 
-            if (decreaseHealth) game.DecreaseHealth();
+            if (decreaseHealth)
+                game.DecreaseHealth();
+            
         }
         else
         {
@@ -41,6 +61,19 @@ public class KeyboardWord : MonoBehaviour
                 if (!answerWord.opened && !answerWord.filled)
                 {
                     answerWord.SetWord(id);
+
+                    //Oyuncu kelimelerin tamamını yazdı
+                    if (game.totOpenedWords == game.answerArr.Count -1)
+                    {
+                        string userAnswer = new string(game.userAnser);
+
+                        Debug.Log("kazandi");
+                        //servera oyuncunun cevabını gönderiyoruz ve kontrol ediyoruz
+                        if (Manager.Instance.room != null)
+                            await Manager.Instance.room.Send(new { command = "prediction", answer = userAnswer});
+                    }
+
+
                     break;
                 }
             }

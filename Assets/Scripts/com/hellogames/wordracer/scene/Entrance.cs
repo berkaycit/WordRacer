@@ -44,9 +44,8 @@ namespace com.helloteam.wordracer.scene
             {
                 case "anonymousin":
                     await Manager.Instance.client.Auth.Login();
-                    if (Manager.Instance.client.Auth.HasToken){
+                    if (Manager.Instance.client.Auth.HasToken)
                         SceneManager.LoadScene(1);
-                    }
 
                     //Manager.Instance.Sound.PlayEffect(Sounds.PLAY_BUTTON);
                     //sceneID = 2;

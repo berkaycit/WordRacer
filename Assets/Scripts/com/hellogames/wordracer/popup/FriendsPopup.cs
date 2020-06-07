@@ -23,6 +23,7 @@ namespace com.helloteam.wordracer.popup
         PopupManager mPopupManager;
         Client client;
 
+        //TODO: scrollbar koy
         public async void Friends()
         {
             float offset = 0;

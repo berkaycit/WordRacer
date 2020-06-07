@@ -44,7 +44,6 @@ namespace com.helloteam.wordracer.popup
             options.Add("userId", client.Auth._id);
 
             Manager.Instance.room = await client.JoinOrCreate<State>("my_room", options);
-            Manager.Instance.GameStarted();
 
             Manager.Instance.room.State.players.OnChange += (Player player, string key) =>
             {
@@ -66,13 +65,17 @@ namespace com.helloteam.wordracer.popup
                                 mPlayers.Add(mkey);
                             }
 
-                            name1.text = Manager.Instance.room.State.players[mPlayers[0].ToString()].displayName.ToString();
-                            name2.text = Manager.Instance.room.State.players[mPlayers[1].ToString()].displayName.ToString();
-
-                            point1.text = Manager.Instance.room.State.players[mPlayers[0].ToString()].point.ToString();
-                            point2.text = Manager.Instance.room.State.players[mPlayers[1].ToString()].point.ToString();
-
                             Manager.Instance.mPlayers = mPlayers;
+
+                            string otherPlayerID;
+
+                            if (Manager.Instance.room.State.players[mPlayers[0]].userId.Equals(client.Auth._id))
+                                otherPlayerID = Manager.Instance.mPlayers[1];
+                            else
+                                otherPlayerID = Manager.Instance.mPlayers[0];
+
+                            name2.text = Manager.Instance.room.State.players[otherPlayerID].displayName;
+                            point2.text = Manager.Instance.room.State.players[otherPlayerID].point.ToString();
 
                             for(int i = 1; i<4; i++)
                             {

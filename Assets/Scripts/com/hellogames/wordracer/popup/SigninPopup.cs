@@ -52,6 +52,7 @@ namespace com.helloteam.wordracer.popup
                     client.Auth.Username = username;
                     client.Auth.Save();
                     if (client.Auth.HasToken){
+                        Manager.Instance.Popup.Close();
                         SceneManager.LoadScene(1);
                     }
 

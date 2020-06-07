@@ -169,11 +169,13 @@
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\manager\Manager.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\manager\PopupManager.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\manager\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\com\hellogames\wordracer\popup\FailPopup.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\popup\FriendsPopup.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\popup\LoginPopup.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\popup\MatchingPopup.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\popup\Popup.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\popup\SigninPopup.cs" />
+    <Compile Include="Assets\Scripts\com\hellogames\wordracer\popup\WinPopup.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\scene\Dashboard.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\scene\Entrance.cs" />
     <Compile Include="Assets\Scripts\com\hellogames\wordracer\scene\Game.cs" />

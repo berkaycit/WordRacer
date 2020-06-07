@@ -73,6 +73,7 @@ namespace com.helloteam.wordracer.popup
                 case "enter":
                     await client.Auth.Login(mail, pass);
                     if (client.Auth.HasToken){
+                        Manager.Instance.Popup.Close();
                         SceneManager.LoadScene(1);
                     }
                     break;
